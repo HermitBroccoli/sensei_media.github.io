@@ -1,3 +1,28 @@
 .information
     min-height: 330px
     background: #f7f6ff
+    padding-bottom: 76px
+    &-contentns
+        padding: 40px 71px 47px 53px
+        background: #fff
+        box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.08)
+        border-radius: 20px
+    &-items
+        margin-top: 34px
+        @include flexing
+    &-item
+        border-right: 1px solid #C7C7C7
+        padding-right: 60px
+        &:last-child
+            border-right: none
+            padding-right: 0
+    &-subtitle
+        background: $gradient
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+        font-weight: 800
+        font-size: 40px
+    &-descr
+        font-weight: 500
+        font-size: 16px
+        color: #333333
