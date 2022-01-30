@@ -6,6 +6,8 @@ let splide = new Splide('.splide', {
     width: '1170',
     gap: '30px',
     pagination: false,
+    grag: true,
+    wheel: true
 });
 
 splide.mount();
