@@ -1,8 +1,11 @@
 let splide = new Splide('.splide', {
     type: 'loop',
     perPage: 2,
+    perMove: 1,
     rewind: true,
-    pagination: false
+    width: '1170',
+    gap: '30px',
+    pagination: false,
 });
 
 splide.mount();
