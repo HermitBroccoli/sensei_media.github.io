@@ -14,7 +14,7 @@ gulp.task('server', function () {
     // setting
     browserSync({
         server: {
-            baseDir: "dist"
+            baseDir: "scr"
         }
     });
     // tracking files html changes
@@ -34,7 +34,7 @@ gulp.task('styles', function () {
         // cleanCSS
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         //uploading a file
-        .pipe(gulp.dest("dist/css"))
+        .pipe(gulp.dest("scr/css"))
         .pipe(browserSync.stream());
 });
 
@@ -48,33 +48,33 @@ gulp.task('html', function () {
 
 gulp.task('scripts', function () {
     return gulp.src("scr/js/**/*.js")
-        .pipe(gulp.dest("dist/js"));
+        .pipe(gulp.dest("scr/js"));
 });
 
 gulp.task('fonts', function () {
     return gulp.src("scr/fonts/**/*")
-        .pipe(gulp.dest("dist/fonts"));
+        .pipe(gulp.dest("scr/fonts"));
 });
 
 gulp.task('icons', function () {
     return gulp.src("scr/icons/**/*")
-        .pipe(gulp.dest("dist/icons"));
+        .pipe(gulp.dest("scr/icons"));
 });
 
 gulp.task('mailer', function () {
     return gulp.src("scr/mailer/**/*")
-        .pipe(gulp.dest("dist/mailer"));
+        .pipe(gulp.dest("scr/mailer"));
 });
 
 gulp.task('images', function () {
     return gulp.src("scr/img/**/*")
         .pipe(imagemin())
-        .pipe(gulp.dest("dist/img"));
+        .pipe(gulp.dest("scr/img"));
 });
 
 gulp.task('watch', function () {
-    gulp.watch("src/sass/**/*.+(scss|sass|css)", gulp.parallel('styles'));
-    gulp.watch("src/*.html").on('change', gulp.parallel('html'));
+    gulp.watch("scr/sass/**/*.+(scss|sass|css)", gulp.parallel('styles'));
+    gulp.watch("scr/*.html").on('change', gulp.parallel('html'));
 });
 
 gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'scripts', 'fonts', 'icons', 'mailer', 'html', 'images'));
