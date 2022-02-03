@@ -4,13 +4,17 @@ const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const rename = require("gulp-rename");
+const imagmin = require('gulp-imagemin');
+const htmlmin = require('gulp-htmlmin');
+const imagemin = require('gulp-imagemin');
+
 
 // running server
 gulp.task('server', function () {
     // setting
     browserSync({
         server: {
-            baseDir: "scr"
+            baseDir: "dist"
         }
     });
     // tracking files html changes
@@ -30,14 +34,50 @@ gulp.task('styles', function () {
         // cleanCSS
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         //uploading a file
-        .pipe(gulp.dest("scr/css"))
+        .pipe(gulp.dest("dist/css"))
         .pipe(browserSync.stream());
 });
 
 // tracking files css changes
+
+gulp.task('html', function () {
+    return gulp.src("scr/*.html")
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(gulp.dest("dist/"));
+});
+
+gulp.task('scripts', function () {
+    return gulp.src("scr/js/**/*.js")
+        .pipe(gulp.dest("dist/js"));
+});
+
+gulp.task('fonts', function () {
+    return gulp.src("scr/fonts/**/*")
+        .pipe(gulp.dest("dist/fonts"));
+});
+
+gulp.task('icons', function () {
+    return gulp.src("scr/icons/**/*")
+        .pipe(gulp.dest("dist/icons"));
+});
+
+gulp.task('mailer', function () {
+    return gulp.src("scr/mailer/**/*")
+        .pipe(gulp.dest("dist/mailer"));
+});
+
+gulp.task('images', function () {
+    return gulp.src("scr/img/**/*")
+        .pipe(imagemin())
+        .pipe(gulp.dest("dist/img"));
+});
+
 gulp.task('watch', function () {
-    gulp.watch("scr/sass/**/*.+(scss|sass)", gulp.parallel('styles'));
-})
+    gulp.watch("src/sass/**/*.+(scss|sass|css)", gulp.parallel('styles'));
+    gulp.watch("src/*.html").on('change', gulp.parallel('html'));
+});
+
+gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'scripts', 'fonts', 'icons', 'mailer', 'html', 'images'));
 
 // starf dafault task
-gulp.task('default', gulp.parallel('watch', 'server', 'styles'));
+// gulp.task('default', gulp.parallel('watch', 'server', 'styles', 'script', 'fonts', 'icons', 'meiler', 'html', 'imges'));
